@@ -1,0 +1,514 @@
+KARGO HIRING RUBRIC - PRODUCT MANAGER (PM) & SENIOR PRODUCT MANAGER (SPM)
+Checkpoint L4-1  |  Built from Arjun's 8 past hires, not from the job descriptions
+Prepared: 28 Sep 2026
+==========================================================================================
+
+
+0. HOW TO READ THIS FILE
+------------------------------------------------------------------------------------------
+Section 1  The outcomes data this rubric is calibrated on
+Section 2  The 3 patterns found in the high-rated hires (and why they are NOT in the JDs)
+Section 3  Scoring rules that apply to every criterion
+Section 4  PM rubric   (5 criteria, weights = 100%)
+Section 5  SPM rubric  (5 criteria, weights = 100%)
+Section 6  Calibration check: the rubric re-scored against the 8 past hires
+Section 7  What this rubric deliberately ignores
+Section 8  Machine-readable summary (for Claude Code / Supabase rubric_criteria table)
+
+
+1. OUTCOMES DATA (source: Case 02 Problem Statement, hire outcomes table)
+------------------------------------------------------------------------------------------
+Name                  Role at Kargo              Joined     Last rating
+Rohan Desai           Head of Engineering        Jul 2022   Exceeds Expectations
+Sunita Krishnamurthy  Operations Lead            Jan 2023   Exceeds Expectations
+Vikram Nair           Product Manager            Jun 2023   Meets Expectations
+Aditya Shetty         Sales Lead                 Aug 2023   Exceeds Expectations
+Preetham Rao          Backend Engineer           Feb 2024   Below Expectations
+Meghna Tiwari         Customer Success Manager   Aug 2024   Exceeds Expectations
+Lavanya Iyer          Product Manager            Apr 2025   Exceeds Expectations
+Rahul Bose            Growth & Marketing Lead    Jun 2025   Meets Expectations
+
+High-rated group (Exceeds, n=5): Rohan, Sunita, Aditya, Meghna, Lavanya
+Comparison group (Meets/Below, n=3): Vikram, Rahul, Preetham
+
+The most important natural experiment in the data: Kargo has hired TWO Product Managers.
+- Vikram Nair is the closer match to the PM job description: 3 years of PM, 40+ user
+  interviews, 12 features shipped, PRD templates, Product School CPO, Reforge, conference
+  speaker. Rated MEETS.
+- Lavanya Iyer has only 2 years of PM and a less polished PM CV, but spent 3 years running
+  carrier operations at a 3PL before product. Rated EXCEEDS.
+Same role, same founder, opposite outcome. The spec picked the wrong one. The rubric must
+explain that gap.
+
+
+2. THE 3 PATTERNS IN THE HIGH-RATED HIRES
+------------------------------------------------------------------------------------------
+
+PATTERN A - THEY HAVE SAT IN THE OPERATOR'S CHAIR
+All 5 Exceeds hires personally carried day-to-day accountability for live freight or
+logistics operations - real shipments, real documents, real counterparties - BEFORE (or
+alongside) their "real" function. None of the 3 others did.
+
+  Rohan    - Operations Executive at a CHA firm, JNPT: 180+ shipments/month, Bills of
+             Lading, Shipping Bills, customs holds, DGFT licences.
+  Sunita   - Documentation & Compliance Exec at a freight forwarder: 200+ shipments/month,
+             CHA/port/DGFT coordination, customs inspections closed without penalty.
+  Aditya   - Sales Exec at a JNPT terminal: berth allocation escalations, container
+             detention negotiations, DO releases; "worked alongside the terminal
+             operations team during peak periods".
+  Meghna   - Customer Relations & Documentation Exec at a freight forwarder: 15-20 live
+             shipments/day, LC document sets, a 7pm customs hold resolved overnight.
+  Lavanya  - Supply Chain Analyst at Mahindra Logistics: carrier allocation and exception
+             management for 800+ shipments/month.
+
+  Vikram   - HR-tech SaaS only. Knows users through interviews, not through doing the job.
+  Preetham - Integrated 3PL APIs (Delhivery, Bluedart) from a 12-engineer desk at a
+             3,200-person e-commerce company. Touched logistics data, never logistics work.
+  Rahul    - Fintech and HR-tech marketing. No operations exposure.
+
+Why this is not in the JD: the PM JD asks for "curiosity" about ground-level operations and
+wants the hire to spend time in customer rooms AFTER joining (a 6-month outcome). The SPM JD
+calls domain "familiarity" an advantage. Neither asks for what actually separated the
+hires: having been the person who gets the phone call when a shipment is stuck. Curiosity
+is an attitude you can fake in an interview; having owned the consequences shows up as
+specific documents, volumes and counterparties on a CV.
+
+PATTERN B - THEY BUILT THE FIX NOBODY ASKED FOR, AND OTHER PEOPLE ADOPTED IT
+4-5 of the 5 Exceeds hires noticed a broken workflow outside their assigned remit, built a
+scrappy fix with whatever was at hand (Excel, a weekend prototype, an SOP, a checklist),
+and it spread to peers or other teams without a mandate - and stayed.
+
+  Rohan    - Excel shipment tracker (nobody knew where shipments stood) -> adopted by the
+             12-person ops team in 2 weeks. BoL verification prototype built over a
+             weekend -> 30 colleagues using it in month 1 -> now a core platform feature.
+  Sunita   - FMS vendor changed its export format without notice -> redesigned the
+             intake workflow over a weekend -> "retained permanently by the team".
+  Lavanya  - Daily visibility dashboard in Excel -> migrated to Tableau "after the team
+             outgrew it" -> adopted by 2 other regional teams. Built the branch's first
+             carrier scorecard. Created a same-day exception triage "that hadn't existed".
+  Meghna   - Onboarding checklist -> team standard (-35% onboarding queries). 30-60-90
+             framework -> used by the full CS team.
+  Aditya   - A salesperson who built the company's first case-study programme (normally a
+             marketing job) -> now primary sales collateral. Loss post-mortem -> now
+             standard qualification practice for the whole team.
+
+  Comparison group: their artefacts sit inside their own job description. Vikram's PRD
+  template is a PM producing a PM artefact for a PM team. Rahul's case studies are a
+  marketer doing marketing. Preetham's monitoring dashboard served his own service.
+  Nothing spread sideways into someone else's workflow.
+
+Why this is not in the JD: the JD asks for people who have "shipped" things. Shipping on an
+assigned roadmap is not the signal. The signal is (a) self-initiated, (b) outside own
+remit, (c) adopted by others voluntarily, (d) still in use. This is also the best
+predictor of the JD's own 6-month goal ("features customers use without being asked to"),
+which the JD never translates into a hiring criterion.
+
+PATTERN C - THEY ABSORB THE BREAK THEMSELVES - NO EXTRA HEADCOUNT, NO ESCALATION
+When volume spiked or something broke, the Exceeds hires redesigned the process and
+contained the damage personally, so the customer or the team never felt it. They did not
+solve problems by hiring, escalating, or presenting upward.
+
+  Rohan    - 18 months of sharply higher documentation volume (air-freight expansion)
+             handled "with no additional headcount... through process redesign". Legacy
+             vendor migration under time pressure, no data loss.
+  Sunita   - Weekend workflow rebuild "to ensure no disruption". Pharma account to 12
+             countries with CDSCO/WHO-GMP requirements.
+  Meghna   - Customs hold at 7pm, resolved overnight "before the client became aware".
+             Covered a departed colleague's 8 accounts for 3 months, "without additional
+             headcount - no churn". "No escalation to management in the last 14 months."
+  Aditya   - Won 3 accounts from a competitor DURING a port congestion incident the
+             competitor handled badly. "No account manager layer between the client and
+             execution."
+  Lavanya  - Wrote both the internal and customer-facing post-mortems after a 4-hour
+             outage and owned follow-ups to closure.
+
+  Comparison group: Rahul scaled by building a 4-person team. Vikram's CV is about
+  managing stakeholders, quarterly roadmap presentations to the CTO and VP Sales, and
+  process for a 4-person PM team. Preetham's incident work was an assigned on-call
+  rotation inside a 12-engineer team. The Meets/Below CVs also contain zero failures,
+  losses or crises - every line is a win or a % of target.
+
+Why this is not in the JD: the JD says "comfort operating without structure". That is
+about tolerating ambiguity. Pattern C is about what the person DOES when things break
+under load: they redesign, contain, and protect the customer - with no one to hand it to.
+
+Two supporting signals (used inside the criteria, not as separate patterns):
+  - Ops-to-system translation. Rohan "translates field requirements into engineering spec
+    without a product layer"; Sunita scoped and ran an FMS migration end to end; Lavanya's
+    discovery found the carrier slot-booking mismatch and wrote the first API docs;
+    Meghna turned an undocumented product limitation into a bug report and ran the 6-week
+    fix with PM and engineering. They stand on the seam between the warehouse floor and
+    the software.
+  - Sole ownership. Rohan "most senior engineer in the room"; Sunita independent
+    consultant; Lavanya "sole PM" whose calls engineering "trusted immediately. She
+    doesn't hedge."; Aditya runs the full enterprise cycle alone. Vikram (4-person PM
+    team) and Preetham (1 of 12 engineers) always had a layer beside or above them.
+
+
+3. SCORING RULES (apply to every criterion, both roles)
+------------------------------------------------------------------------------------------
+- Score each criterion 0-4 using the anchors given.
+- Weighted score = sum over criteria of (score / 4) x weight. Range 0-100.
+- EVIDENCE OR ZERO: every score above 0 must quote or closely paraphrase a specific line
+  from the CV (a document type, a volume, a counterparty, a named artefact, an adoption
+  number). Adjectives in a summary ("hands-on", "ownership mindset", "passionate about
+  logistics") earn nothing on their own.
+- Count what the person did, not what their team or company did.
+- Where evidence is ambiguous, score the lower anchor and put the doubt into the
+  "probe in interview" note - the interview is where ambiguity gets resolved, not the CV.
+- Every candidate is scored against BOTH the PM and SPM rubric regardless of which role
+  they applied for (a strong PM applicant may be a viable SPM, and vice versa).
+- Suggested bands (weighted score):
+      75-100  Strong shortlist - interview this week
+      55-74   Shortlist - interview if the top band is thin
+      35-54   Hold - only with a specific reason written down
+      0-34    Do not advance (still receives a warm, human-reviewed rejection)
+  Arjun decides. The score recommends; it never rejects on its own.
+
+
+==========================================================================================
+4. PM RUBRIC  (Product Manager - first PM on the core operations platform)
+==========================================================================================
+
+------------------------------------------------------------------------------------------
+PM-1  OPERATOR'S CHAIR
+Weight: 30%
+Source pattern: A  |  Anchored on: Lavanya (Exceeds) vs Vikram (Meets) - same role
+------------------------------------------------------------------------------------------
+What a strong candidate looks like:
+Has personally held a role where they were accountable for live freight, logistics,
+supply-chain or port operations - not a role that sold to, analysed, or built software
+for those operations. The CV names the operational objects they handled (Bills of Lading,
+shipping bills, DOs, customs holds, carrier allocation, detention, exceptions, slot
+bookings) and gives a volume or cadence (shipments per month, accounts per day). For a PM
+this can be a pre-product career (Lavanya's 3 years at a 3PL is the model) or an
+ops-heavy role inside a logistics tech company.
+
+  4 - 2+ years in a frontline ops seat at a forwarder / CHA / 3PL / port / carrier, with
+      named documents or processes AND volumes. (Rohan, Sunita, Lavanya, Meghna.)
+  3 - 1-2 years in such a seat, OR a customer-facing commercial/CS role that sat inside
+      daily operations (Aditya at the JNPT terminal).
+  2 - Frontline ops in an adjacent operations-heavy domain (field service, manufacturing
+      floor, last-mile, e-commerce fulfilment ops) with volumes and consequences.
+  1 - Built or managed software FOR logistics users from the office; discovery via
+      calls/interviews only. (Preetham's 3PL API integrations.)
+  0 - No operational exposure. (Vikram, Rahul.)
+
+Probe in interview: "Walk me through a morning when a shipment you were responsible for
+got stuck. Who called you, what document was wrong, what did you do in the first hour?"
+Red flag: talks about "the user" in the abstract; cannot name a document or counterparty.
+
+------------------------------------------------------------------------------------------
+PM-2  UNASKED BUILD, ORGANIC ADOPTION
+Weight: 25%
+Source pattern: B  |  Anchored on: Rohan, Sunita, Lavanya, Meghna
+------------------------------------------------------------------------------------------
+What a strong candidate looks like:
+Can show at least one tool, process or feature they started without being assigned, that
+fixed a problem they saw in someone's workflow, and that OTHER people adopted voluntarily
+and kept using. The CV states who adopted it and how fast or how widely (e.g. "adopted by
+the 12-member ops team within two weeks", "used by 2 other regional teams", "now the team
+standard"). Scrappy is fine - Excel first, software later is the pattern (Lavanya's
+dashboard, Rohan's tracker).
+
+  4 - 2+ unasked builds with named adoption by people outside their own reporting line,
+      still in use or productised. (Rohan, Lavanya.)
+  3 - 1 clear unasked build with measured adoption beyond themselves. (Sunita, Meghna.)
+  2 - Self-initiated improvement adopted within their own immediate team, or an artefact
+      outside their remit with thin adoption evidence. (Aditya's case-study programme.)
+  1 - Artefacts that are standard outputs of their own job (a PM writing a PRD template,
+      a marketer running case studies, an engineer building a monitor for own service).
+      (Vikram, Rahul, Preetham.)
+  0 - Only assigned roadmap/deliverables listed.
+
+Probe in interview: "What is something you built that nobody asked for? Who uses it today,
+and how did they find out about it?"
+Red flag: "shipped 12 features" with no line about who chose to use them.
+
+------------------------------------------------------------------------------------------
+PM-3  ABSORBS THE BREAK
+Weight: 20%
+Source pattern: C  |  Anchored on: Meghna, Rohan, Sunita
+------------------------------------------------------------------------------------------
+What a strong candidate looks like:
+The CV contains at least one moment where something broke or load spiked - a hold, an
+outage, a vendor change, a departing colleague, a volume surge, a lost deal - and the
+candidate contained it themselves through process redesign or direct action, WITHOUT
+adding headcount or escalating, and the customer/team was protected. They describe the
+failure honestly, not just the win.
+
+  4 - 2+ concrete break-and-contain episodes with the outcome stated ("before the client
+      became aware", "no additional headcount", "no disruption", "no churn"). (Meghna,
+      Rohan, Sunita.)
+  3 - 1 clear episode, or a candid loss/kill with a documented lesson that changed
+      practice. (Lavanya's outage post-mortem and 2 killed features; Aditya's lost-deal
+      post-mortem.)
+  2 - Handles incidents inside an assigned process (on-call rota, escalation path), with
+      results.
+  1 - Mentions pressure or "fast-paced environments" with no specific episode.
+      (Preetham at best.)
+  0 - CV is 100% wins and % of target; problems are solved by hiring or presenting
+      upward. (Vikram, Rahul.)
+
+Probe in interview: "Tell me about the worst week in your last job. What broke, what did
+you change, and who never found out it broke?"
+Red flag: every answer ends with "so I escalated" or "so we hired".
+
+------------------------------------------------------------------------------------------
+PM-4  OPS-TO-SPEC TRANSLATION
+Weight: 15%
+Source: supporting signal  |  Anchored on: Rohan, Lavanya, Meghna
+------------------------------------------------------------------------------------------
+What a strong candidate looks like:
+Has converted something observed on the operations floor into a concrete change engineers
+could build, and can name the specific workflow mismatch they found. Lavanya's discovery
+uncovered how carriers actually confirmed slot bookings and the pivot cut that account's
+tickets by 60%; Rohan translated field requirements into spec "without a product layer";
+Meghna turned an undocumented limitation hurting 4 accounts into a bug report and ran the
+fix with PM and engineering. Volume of interviews does not count; the specific mismatch
+found does.
+
+  4 - Names a specific ground-level workflow mismatch they found AND the shipped change AND
+      an operational result (tickets, delays, exceptions, adoption).
+  3 - Clear example of ops -> spec translation with a result, less specific on the
+      mismatch.
+  2 - Worked alongside engineering on ops-facing features, but insight came from others.
+  1 - Discovery described as method/volume ("40+ user interviews", "JTBD framework") with
+      no specific operational insight. (Vikram.)
+  0 - No evidence of bridging ops and product/engineering.
+
+Probe in interview: "What is one thing users told you that turned out to be wrong once you
+watched them work?"
+
+------------------------------------------------------------------------------------------
+PM-5  SOLE OWNER
+Weight: 10%
+Source: supporting signal  |  Anchored on: Lavanya (sole PM) vs Vikram (1 of 4 PMs)
+------------------------------------------------------------------------------------------
+What a strong candidate looks like:
+Has owned a product area, account book or process end to end where they were the only
+person accountable - no senior PM, manager layer or committee making the call. The CV says
+so explicitly ("sole PM", "no account manager layer", "independent", "most senior in the
+room") and shows a decision they made and stood behind.
+
+  4 - Sole owner of an area with a named consequential call they made (e.g. killing a
+      feature customers asked for, based on usage data).
+  3 - Sole owner, decisions implied but not named.
+  2 - Owned a sub-area with a senior above who set direction.
+  1 - One of several peers in a structured function; presents upward for decisions.
+  0 - Execution role only.
+
+Probe in interview: "What is a call you made that your manager would not have made? What
+happened?"
+
+PM WEIGHTS: 30 + 25 + 20 + 15 + 10 = 100%
+
+Why the PM weights look like this:
+- Operator's Chair (30) is the only pattern present in 5 of 5 Exceeds hires and 0 of 3
+  others, and it is exactly what separated Lavanya from Vikram in the same role.
+- Unasked Build (25) is the best predictor of the JD's own 6-month test: "features
+  customers use without being asked to".
+- Absorbs the Break (20) matters because the first PM will be alone when things break.
+- Translation (15) and Sole Owner (10) are real but more coachable at the 2-4 year level,
+  and the PM reports directly to Arjun, who can cover some decision-making early.
+
+
+==========================================================================================
+5. SPM RUBRIC  (Senior Product Manager - integration & data layer, most senior PM)
+==========================================================================================
+Same criterion names as PM so scores are comparable, but the bar is higher on every
+anchor, and weight shifts toward independence and integration-seam work, because the SPM
+owns decisions "we will feel two years from now" with no committee and no Head of Product.
+
+------------------------------------------------------------------------------------------
+SPM-1  OPERATOR'S CHAIR
+Weight: 25%
+Source pattern: A  |  Anchored on: Rohan, Sunita
+------------------------------------------------------------------------------------------
+What a strong candidate looks like:
+Has held accountability for live logistics operations AND understands the systems those
+operations run on: they have used or migrated the forwarder/customs stack themselves
+(CargoWise, ICEGATE/customs EDI, TMS, port portals, carrier systems). Rohan (CHA ops ->
+freight-tracking engineer) and Sunita (documentation -> ran an FMS migration) are the
+models: they know what the integration has to survive because they lived the manual
+version.
+
+  4 - 2+ years in a frontline ops seat AND hands-on with the operational systems or
+      data flows (FMS, customs EDI, TMS, carrier/port portals), with volumes.
+  3 - 2+ years frontline ops, lighter systems exposure; OR long ops-embedded role at a
+      logistics tech company working inside customer operations.
+  2 - Ops-heavy adjacent domain (supply chain, field ops, fulfilment) with systems
+      exposure.
+  1 - Built integrations for logistics from the office only (Preetham).
+  0 - No operational exposure.
+
+Probe: "Draw me the path a Bill of Lading takes from your customer's system to the carrier
+and back. Where does it break?"
+
+------------------------------------------------------------------------------------------
+SPM-2  UNASKED BUILD, ORGANIC ADOPTION
+Weight: 15%
+Source pattern: B  |  Anchored on: Rohan (weekend prototype -> core platform feature)
+------------------------------------------------------------------------------------------
+What a strong candidate looks like:
+At SPM level the bar is not a spreadsheet the team used - it is an unasked build that
+became part of the platform or the organisation's standard way of working. Rohan's BoL
+verification module (weekend prototype -> 30 users in month 1 -> core feature) is the
+model.
+
+  4 - Self-initiated build that became a core product capability or a cross-team standard,
+      with adoption numbers.
+  3 - 2+ unasked builds adopted beyond own team, not yet productised.
+  2 - 1 unasked build with adoption inside own team.
+  1 - Only standard artefacts of own role.
+  0 - Only assigned deliverables.
+
+Probe: "Which thing you built without permission is now something the company depends on?"
+
+------------------------------------------------------------------------------------------
+SPM-3  ABSORBS THE BREAK
+Weight: 20%
+Source pattern: C  |  Anchored on: Rohan (vendor migration), Sunita (vendor format change)
+------------------------------------------------------------------------------------------
+What a strong candidate looks like:
+Has contained a SYSTEM-level break - a data vendor failing, an upstream format changing
+without notice, an outage, a migration under time pressure - and protected customers
+while fixing the root cause. Both Rohan (legacy data-vendor migration, no data loss, 60%
+less lag) and Sunita (FMS vendor changed its export format overnight; weekend redesign,
+retained permanently) did exactly the kind of work the integration layer will throw at
+this role. Writes the post-mortem and changes the standard afterwards.
+
+  4 - 2+ system-level break-and-contain episodes with customer impact stated and a
+      lasting fix/standard left behind.
+  3 - 1 system-level episode, or several operational ones with a durable fix.
+  2 - Operational firefighting only, no root-cause or standard change.
+  1 - Generic pressure claims, no episode.
+  0 - Wins-only CV; problems handed upward or solved by hiring.
+
+Probe: "An upstream carrier API changes its schema on a Friday night. Tell me about the
+last time something like that actually happened to you."
+
+------------------------------------------------------------------------------------------
+SPM-4  OPS-TO-SYSTEM TRANSLATION
+Weight: 20%
+Source: supporting signal  |  Anchored on: Rohan, Sunita, Lavanya
+------------------------------------------------------------------------------------------
+What a strong candidate looks like:
+Has stood on the seam between operations and technical systems and made architectural
+calls there: scoping migrations, choosing what to build vs configure vs leave alone,
+documenting integrations so customers onboard faster. Evidence: Rohan translating field
+requirements into engineering spec with no product layer and leading a vendor migration;
+Sunita scoping a paper-to-cloud FMS migration, managing the vendor, training staff and
+monitoring go-live; Lavanya writing the first API documentation (-2 weeks on integration
+timelines).
+
+  4 - Led at least one integration/migration end to end (scope, vendor or partner, rollout,
+      post-go-live) AND names a build-vs-configure-vs-avoid decision with its outcome.
+  3 - Led an integration/migration end to end, decision logic less explicit.
+  2 - Contributed to integrations as one of several owners.
+  1 - Integration work only from the engineering side, no ops context (Preetham).
+  0 - No integration or ops-system work.
+
+Probe: "Tell me about an integration you decided NOT to build. How did you explain that to
+sales?"
+
+------------------------------------------------------------------------------------------
+SPM-5  SOLE OWNER
+Weight: 20%
+Source: supporting signal  |  Anchored on: Sunita (independent), Rohan ("most senior in
+the room"), Lavanya ("She doesn't hedge.")
+------------------------------------------------------------------------------------------
+What a strong candidate looks like:
+Has been the final decision-maker - not a contributor - for a product area, platform or
+client operation for a sustained period, with no senior layer to escalate to, and can name
+calls they made that had long-term consequences and that they lived with. For SPM this is
+the most important difference from PM: the JD offers "no committee that approves product
+decisions" and a path to Head of Product.
+
+  4 - 2+ years as the most senior owner of an area (sole/lead PM, head of function,
+      independent operator) with named long-horizon calls and their consequences,
+      including at least one that went wrong.
+  3 - Sole owner for 1-2 years, calls named.
+  2 - Senior contributor with a strong manager above setting direction.
+  1 - One of several peers; decisions made in reviews/committees (Vikram).
+  0 - Execution role only.
+
+Probe: "What decision are you still living with from two years ago? Would you make it
+again?"
+
+SPM WEIGHTS: 25 + 15 + 20 + 20 + 20 = 100%
+
+Why the SPM weights differ from PM:
+- Sole Owner rises 10 -> 20: the SPM is the most senior PM with no Head of Product.
+- Ops-to-System Translation rises 15 -> 20: the SPM owns the integration and data layer,
+  exactly the seam Rohan and Sunita worked on.
+- Unasked Build drops 25 -> 15: at 5-8 years nearly every strong candidate has built
+  things; the discriminator shifts to whether it became platform, captured in the higher
+  anchor.
+- Operator's Chair drops 30 -> 25 only because the anchor is harder; it is still the
+  single largest criterion.
+
+
+6. CALIBRATION CHECK - THE RUBRIC SCORED AGAINST THE 8 PAST HIRES
+------------------------------------------------------------------------------------------
+Scores per criterion (0-4), order C1..C5. Weighted totals out of 100.
+
+Hire       Rating   C1 C2 C3 C4 C5   PM score   SPM score
+Rohan      Exceeds   4  4  4  4  3     97.5       95.0
+Sunita     Exceeds   4  4  4  3  4     96.3       95.0
+Lavanya    Exceeds   4  4  3  4  4     95.0       95.0
+Meghna     Exceeds   4  3  4  3  3     87.5       86.3
+Aditya     Exceeds   3  3  3  2  3     71.3       70.0
+Preetham   Below     1  1  1  1  0     22.5       20.0
+Rahul      Meets     0  2  0  0  2     17.5       17.5
+Vikram     Meets     0  1  0  1  1     12.5       13.8
+
+Result: every Exceeds hire lands in the shortlist bands (70+); every Meets/Below hire lands
+under 25. Clean separation of about 45 points. Most importantly Lavanya (95) vs Vikram
+(12.5) - the two PM hires - are separated by the rubric where the JD would have ranked
+Vikram first.
+
+Honest limits:
+- 8 hires is a small sample; treat the weights as a first calibration and re-check after
+  the first 2-3 new hires have a rating.
+- The rubric is built to find "looks like our Exceeds hires". It does not rank finely
+  between Meets and Below (Preetham scores slightly above Vikram and Rahul).
+- Pattern A risks narrowing the pool to people from logistics. If a candidate scores 0 on
+  C1 but 4 on C2-C3, flag them for Arjun rather than letting the total bury them.
+
+
+7. WHAT THIS RUBRIC DELIBERATELY IGNORES (score 0 weight, do not let it leak in)
+------------------------------------------------------------------------------------------
+- Years of experience, job titles, seniority labels (already in the JD; Vikram had more PM
+  years than Lavanya).
+- PM certifications and communities: Product School, Reforge, CPO certificates. Both PMs
+  held a Product School certificate; one exceeded, one did not. It is not a signal.
+- College / MBA brand (XLRI, NIT, St. Stephen's appear across both groups).
+- Company brand or size. Large, structured employers (3,200-person Cartexa) were, if
+  anything, a negative context.
+- Tool lists and frameworks (JIRA, Figma, JTBD, OKRs).
+- Conference talks, "thought leadership".
+- Revenue / ARR / pipeline numbers on their own. They count only when they come from an
+  unasked build or a contained break.
+- Name, gender, age, photo, location of origin, or any personal detail. These are
+  stripped at extraction and must never reach the scoring step.
+
+
+8. MACHINE-READABLE SUMMARY (for Claude Code -> rubric_criteria table)
+------------------------------------------------------------------------------------------
+role | code  | criterion                    | weight | scale
+PM   | PM-1  | Operator's Chair             | 30     | 0-4
+PM   | PM-2  | Unasked Build, Organic Adoption | 25  | 0-4
+PM   | PM-3  | Absorbs the Break            | 20     | 0-4
+PM   | PM-4  | Ops-to-Spec Translation      | 15     | 0-4
+PM   | PM-5  | Sole Owner                   | 10     | 0-4
+SPM  | SPM-1 | Operator's Chair             | 25     | 0-4
+SPM  | SPM-2 | Unasked Build, Organic Adoption | 15  | 0-4
+SPM  | SPM-3 | Absorbs the Break            | 20     | 0-4
+SPM  | SPM-4 | Ops-to-System Translation    | 20     | 0-4
+SPM  | SPM-5 | Sole Owner                   | 20     | 0-4
+
+Formula: weighted_score = SUM( (criterion_score / 4) * weight )  -> 0 to 100
+Output per criterion: score (0-4) + one-line reason quoting the CV evidence.
+Bands: 75+ strong shortlist | 55-74 shortlist | 35-54 hold | <35 do not advance
+(Arjun confirms every decision; nothing is sent or rejected without him.)
