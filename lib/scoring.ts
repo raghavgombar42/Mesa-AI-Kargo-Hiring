@@ -1,3 +1,4 @@
+import { SCORING_READS, SCORING_THINKING } from "./config";
 import { generateJSON } from "./gemini";
 import { SCORING_RULES, type Criterion, type Role } from "./rubric-data";
 
@@ -81,8 +82,25 @@ type ModelOutput = {
   criteria: { code: string; evidence: string; score: number; reason: string; doubt: string }[];
 };
 
-/** Scores redacted CV content against BOTH the PM and SPM rubric in one call. */
+/**
+ * Scores redacted CV content against both the PM and the SPM rubric. Each role is
+ * its own model call and the calls run in parallel: smaller, focused prompts are
+ * about 3x faster than one big call and just as consistent (see the speed notes in
+ * docs/HIRING_WORKFLOW.md).
+ */
 export async function scoreCandidate(content: string, criteria: Criterion[]): Promise<ScoreResult> {
+  const roles = [...new Set(criteria.map((c) => c.role))];
+  const parts = await Promise.all(roles.map((role) => scoreGroup(content, criteria.filter((c) => c.role === role))));
+  const results = parts.flatMap((p) => p.results);
+  return {
+    headline: parts.find((p) => p.headline)?.headline ?? "",
+    results,
+    pm_score: weightedScore(results, criteria.filter((c) => c.role === "PM")),
+    spm_score: weightedScore(results, criteria.filter((c) => c.role === "SPM")),
+  };
+}
+
+async function scoreGroup(content: string, criteria: Criterion[]): Promise<Pick<ScoreResult, "headline" | "results">> {
   const codes = criteria.map((c) => c.code);
 
   const schema = {
@@ -126,11 +144,17 @@ export async function scoreCandidate(content: string, criteria: Criterion[]): Pr
 
   const prompt = `RUBRIC\n\n${renderRubric(criteria)}\n\n---\nCV (redacted)\n\n${content}\n\n---\nScore this CV on every criterion above (${codes.join(
     ", ",
-  )}). Score PM and SPM criteria independently - the SPM anchors have a higher bar.`;
+  )}).${criteria.some((c) => c.role === "SPM") ? " These are the Senior PM anchors: the bar is higher than for a PM." : ""}`;
 
-  const out = await generateJSON<ModelOutput>({ system: SYSTEM, prompt, schema });
+  // Several independent fast reads in parallel. Each criterion is checked against
+  // the CV (evidence or zero), then the LOWEST read wins - the rubric's own rule
+  // ("where evidence is ambiguous, score the lower anchor"). Same wall-clock time
+  // as one read, much less run-to-run noise than a single fast read.
+  const reads = await Promise.all(
+    Array.from({ length: SCORING_READS }, () => generateJSON<ModelOutput>({ system: SYSTEM, prompt, schema, thinking: SCORING_THINKING })),
+  );
 
-  const results: CriterionResult[] = criteria.map((c) => {
+  const checked = (out: ModelOutput, c: Criterion): CriterionResult => {
     const r = out.criteria?.find((x) => x.code === c.code);
     if (!r) {
       return { role: c.role, code: c.code, score: 0, reason: "Not scored by the model.", evidence: "", doubt: "Re-run scoring.", evidence_verified: false };
@@ -145,12 +169,17 @@ export async function scoreCandidate(content: string, criteria: Criterion[]): Pr
       score = 0;
     }
     return { role: c.role, code: c.code, score, reason, evidence, doubt: (r.doubt ?? "").trim(), evidence_verified: verified };
-  });
-
-  return {
-    headline: (out.headline ?? "").trim(),
-    results,
-    pm_score: weightedScore(results, criteria.filter((c) => c.role === "PM")),
-    spm_score: weightedScore(results, criteria.filter((c) => c.role === "SPM")),
   };
+
+  const results: CriterionResult[] = criteria.map((c) => {
+    const options = reads.map((out) => checked(out, c));
+    const lowest = options.reduce((lo, x) => (x.score < lo.score ? x : lo));
+    const split = new Set(options.map((x) => x.score)).size > 1;
+    // If the reads disagreed, say so - it's exactly what to probe in interview.
+    const doubt = split && !lowest.doubt ? `Reads disagreed (${options.map((x) => x.score).join(" vs ")}); scored the lower.` : lowest.doubt;
+    return { ...lowest, doubt };
+  });
+  const out = reads[0];
+
+  return { headline: (out.headline ?? "").trim(), results };
 }

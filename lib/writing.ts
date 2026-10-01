@@ -1,7 +1,7 @@
 // Brief + email drafting. Inputs are redacted CV content and scores only; the
 // candidate's real name is substituted for [NAME] at display/send time.
 
-import { COMPANY_NAME, SENDER_NAME } from "./config";
+import { COMPANY_NAME, FAST_THINKING, SENDER_NAME } from "./config";
 import { generateJSON } from "./gemini";
 import type { Criterion, Role } from "./rubric-data";
 
@@ -46,6 +46,7 @@ Write:
     system,
     prompt,
     temperature: 0.2,
+    thinking: FAST_THINKING,
     schema: {
       type: "object",
       properties: {
@@ -188,7 +189,7 @@ ${input.content}`;
     required: ["subject", "body"],
   };
 
-  let out = await generateJSON<{ subject: string; body: string }>({ system: EMAIL_SYSTEM, prompt, temperature: 0.5, schema });
+  let out = await generateJSON<{ subject: string; body: string }>({ system: EMAIL_SYSTEM, prompt, temperature: 0.5, schema, thinking: FAST_THINKING });
   const tells = findAiTells(`${out.subject}\n${out.body}`);
   if (tells.length) {
     // One redraft with explicit feedback if stock phrasing slipped through.
@@ -197,6 +198,7 @@ ${input.content}`;
       prompt: `${prompt}\n\nYour previous draft used these banned phrases: ${tells.join(", ")}. Rewrite it without them, keeping it specific and human.\n\nPrevious draft:\n${out.body}`,
       temperature: 0.5,
       schema,
+      thinking: FAST_THINKING,
     });
   }
 

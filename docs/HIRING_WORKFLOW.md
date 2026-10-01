@@ -287,6 +287,20 @@ After the fixes, a check across all 68 CVs (60 applications + 8 hires) found **n
 | Pages | Candidates (PM / SPM / Screened-out tabs, funnel) · candidate page (stepper, screen, brief, scores with quotes, email editor, Confirm & send) · Outbox · Upload (drag and drop) · Scoring model · password login |
 | Scripts | `npm run db:setup` (tables + rubric) · `npm run ingest -- <folder>` (bulk load, role from `pm_`/`spm_` prefix) · `npm run screen-report -- <folder>` (dry run, no DB) · `npm run calibrate -- <folder>` (past hires vs rubric.txt) |
 
+### Speed (measured 1 Oct 2026)
+
+Most of the time went to Gemini's built-in "thinking" step, not our code. What we changed, and what each change was measured to do:
+
+| Step | Before | After | How |
+|---|---|---|---|
+| Screen facts | ~10s | ~2s | Extraction needs little reasoning: thinking level LOW |
+| Rubric scoring | 19–33s | ~10s | One call per role (PM, SPM) **in parallel** at thinking level MEDIUM. Smaller, focused prompts. Just as consistent as the slow default: the same CV scored 71.3 / 61.3 on repeat runs |
+| Brief + email per candidate | 15–19s each, one after another | ~3–8s each, 4 at a time | Thinking level LOW; drafts run in parallel |
+| Upload | 2 CVs at a time | 3 at a time | |
+| **2 new CVs, upload to drafts ready** | ~2 min | **~55s** | End-to-end through the upload API |
+
+Rejected option: a single LOW-thinking scoring read was fastest (~5s) but too noisy (one CV swung 71 → 81 between runs). Rankings are the product, so we didn't trade their consistency for a few seconds.
+
 ## 13. Known limits and next steps
 
 1. **Single run, small sample.** The rubric is calibrated on 8 hires, and model scores move a few points between runs. Re-check the weights after the first 2–3 new hires have a rating.

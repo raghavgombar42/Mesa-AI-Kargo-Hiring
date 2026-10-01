@@ -6,7 +6,7 @@ import { runRefreshLoop } from "@/components/RefreshButton";
 
 type Item = { file: File; state: "queued" | "scoring" | "done" | "error"; id?: string; error?: string };
 
-const CONCURRENCY = 2;
+const CONCURRENCY = 3;
 
 export function Uploader() {
   const [role, setRole] = useState<"" | "PM" | "SPM" | "AUTO">("");

@@ -1,26 +1,31 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, ThinkingLevel } from "@google/genai";
 import { GEMINI_MODEL } from "./config";
 
-// GEMINI_API_KEY may hold several comma-separated keys. If one is rejected
-// (expired / revoked) or rate-limited, calls move on to the next.
+// GEMINI_API_KEY may hold several comma-separated keys. A key that is rejected
+// (expired / revoked) is dropped for the life of the process; a rate-limited key
+// just hands over to the next one. Safe under concurrent calls.
 const clients = new Map<string, GoogleGenAI>();
+const deadKeys = new Set<string>();
 let current = 0;
 
-function keys() {
+function liveKeys() {
   const list = (process.env.GEMINI_API_KEY ?? "").split(",").map((k) => k.trim()).filter(Boolean);
   if (!list.length) throw new Error("GEMINI_API_KEY is not set");
-  return list;
+  const live = list.filter((k) => !deadKeys.has(k));
+  if (!live.length) throw new Error("Every GEMINI_API_KEY was rejected as invalid or expired - add a working key");
+  return live;
 }
 
-function client() {
-  const list = keys();
-  const key = list[current % list.length];
+function pickKey() {
+  const live = liveKeys();
+  const key = live[current % live.length];
   if (!clients.has(key)) clients.set(key, new GoogleGenAI({ apiKey: key }));
-  return clients.get(key)!;
+  return { key, ai: clients.get(key)! };
 }
 
-const isKeyProblem = (err: unknown) =>
-  /\b(401|403|429)\b|UNAUTHENTICATED|PERMISSION_DENIED|API_KEY_INVALID|RESOURCE_EXHAUSTED/i.test(String((err as Error)?.message ?? err));
+const msgOf = (err: unknown) => String((err as Error)?.message ?? err);
+const isDeadKey = (err: unknown) => /(401|403)|UNAUTHENTICATED|PERMISSION_DENIED|API_KEY_INVALID/i.test(msgOf(err));
+const isRateLimit = (err: unknown) => /429|RESOURCE_EXHAUSTED/i.test(msgOf(err));
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -44,12 +49,16 @@ export async function generateJSON<T>(opts: {
   prompt: string;
   schema: Record<string, unknown>;
   temperature?: number;
+  /** How much the model reasons before answering. Lower = faster. Defaults to GEMINI_THINKING or the model default. */
+  thinking?: "MINIMAL" | "LOW" | "MEDIUM" | "HIGH";
 }): Promise<T> {
+  const level = opts.thinking ?? (process.env.GEMINI_THINKING as typeof opts.thinking);
   let lastErr: unknown;
   let keySwitches = 0;
   for (let attempt = 0; attempt < 5; attempt++) {
+    const { key, ai } = pickKey();
     try {
-      const res = await client().models.generateContent({
+      const res = await ai.models.generateContent({
         model: GEMINI_MODEL,
         contents: opts.prompt,
         config: {
@@ -57,6 +66,7 @@ export async function generateJSON<T>(opts: {
           temperature: opts.temperature ?? 0,
           responseMimeType: "application/json",
           responseJsonSchema: opts.schema,
+          ...(level ? { thinkingConfig: { thinkingLevel: ThinkingLevel[level] } } : {}),
         },
       });
       const text = res.text;
@@ -64,10 +74,16 @@ export async function generateJSON<T>(opts: {
       return JSON.parse(text) as T;
     } catch (err) {
       lastErr = err;
-      if (isKeyProblem(err) && keySwitches < keys().length - 1) {
+      if (isDeadKey(err)) {
+        deadKeys.add(key); // never use this key again in this process
+        if (keySwitches++ < 10) {
+          attempt--; // switching keys doesn't use up a retry
+          continue;
+        }
+      }
+      if (isRateLimit(err) && liveKeys().length > 1 && keySwitches++ < 10) {
         current++;
-        keySwitches++;
-        attempt--; // a key switch doesn't use up a retry
+        attempt--;
         continue;
       }
       const parseError = err instanceof SyntaxError;

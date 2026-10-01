@@ -2,6 +2,7 @@
 // Gemini only extracts facts (with verbatim quotes); the pass/fail rules below are
 // plain code so every screening decision can be read, audited and overridden.
 
+import { FAST_THINKING } from "./config";
 import { generateJSON } from "./gemini";
 import type { Role } from "./rubric-data";
 import { evidenceAppears } from "./scoring";
@@ -83,7 +84,7 @@ const SCHEMA = {
 };
 
 export async function extractScreenFacts(content: string): Promise<ScreenFacts> {
-  return generateJSON<ScreenFacts>({ system: SYSTEM, prompt: `CV (redacted):\n\n${content}`, schema: SCHEMA });
+  return generateJSON<ScreenFacts>({ system: SYSTEM, prompt: `CV (redacted):\n\n${content}`, schema: SCHEMA, thinking: FAST_THINKING });
 }
 
 // ------------------------------------------------------------------ duplicates (no AI)

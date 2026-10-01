@@ -198,20 +198,28 @@ export async function draftEmail(
  * `limit` AI calls per invocation (serverless time limits); call again while
  * `remaining > 0`.
  */
-export async function refreshDrafts(limit = 6) {
+export async function refreshDrafts(limit = 12, concurrency = 4) {
   const criteria = await getCriteria();
-  const tasks = await planTasks();
+  const tasks = (await planTasks()).slice(0, limit);
   const errors: string[] = [];
   let done = 0;
-  for (const t of tasks.slice(0, limit)) {
-    try {
-      await runTask(t, criteria);
-      done++;
-    } catch (e) {
-      errors.push(`${t.kind} for ${t.candidateId}: ${errMsg(e)}`);
-    }
-  }
-  const remaining = Math.max(0, tasks.length - done);
+  let next = 0;
+  // Briefs and emails are independent, so several run at once.
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, tasks.length) }, async () => {
+      while (next < tasks.length) {
+        const t = tasks[next++];
+        try {
+          await runTask(t, criteria);
+          done++;
+        } catch (e) {
+          errors.push(`${t.kind} for ${t.candidateId}: ${errMsg(e)}`);
+        }
+      }
+    }),
+  );
+  const total = (await planTasks()).length;
+  const remaining = total;
   // If every task in the batch failed, stop the client loop instead of spinning.
   return { done, remaining: errors.length && done === 0 ? 0 : remaining, errors };
 }
