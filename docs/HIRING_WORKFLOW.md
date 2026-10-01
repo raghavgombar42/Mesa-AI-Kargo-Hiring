@@ -1,10 +1,10 @@
 # Kargo Hiring Workflow — PM & SPM
 
-*MESA · AI and its Applications · Case 02 (Arjun / Kargo) · last updated 30 Sep 2026*
+*MESA · AI and its Applications · Case 02 (Arjun / Kargo) · last updated 1 Oct 2026*
 
 **In one line:** 60 CVs arrive and a founder has made 0 offers in 11 weeks. We screen every CV against five hard must-haves, rank the survivors on a rubric built from Arjun's own best hires (not the job description), write a brief and a personal email for each one, and let Arjun make the only decision that matters: who gets the email.
 
-**Result on the 60 applications:** 1 duplicate caught · **39 screened out** · 21 ranked (10 PM, 11 SPM) · **8 interview-invite drafts** (5 PM, 3 SPM) · 52 warm rejection drafts · 0 emails sent without Arjun's click.
+**Result on the 60 applications (live in Neon):** 1 duplicate caught · **37 screened out** · 23 ranked (10 PM, 13 SPM) · **8 interview-invite drafts** (5 PM, 3 SPM) · 52 warm rejection drafts · 11 interview briefs · 0 emails sent without Arjun's click.
 
 ---
 
@@ -126,19 +126,19 @@ The screen is a **floor**, not a ranking. It answers "could this person plausibl
 
 ### How many get rejected at screening, and on what basis
 
-We didn't pick a target number. The number falls out of the five rules. On this batch **39 of 60 (65%)** were screened out:
+We didn't pick a target number. The number falls out of the five rules. On this batch **37 of 60 (62%)** were screened out:
 
 | Must-have missed | CVs failing it | …as the *only* reason |
 |---|---|---|
-| 4 · Operations proximity | 31 | 20 |
-| 3 · Owned what gets built | 13 | 3 |
+| 4 · Operations proximity | 30 | 17 |
+| 3 · Owned what gets built | 14 | 2 |
+| 5 · Evidence | 8 | 1 |
 | 2 · Experience floor | 7 | 0 |
-| 5 · Evidence | 7 | 1 |
 | 1 · Genuine / unique | 1 (the duplicate) | 1 |
 
-By source: 26 of the 30 numbered, untagged CVs were screened out (marketing, strategy/consulting, students, consumer apps, fintech). So were 7 of 15 `pm_` and 6 of 15 `spm_` CVs: mostly JD-perfect profiles from HR-tech, banking, FMCG brand, consumer growth or IT delivery with no operations exposure. These are the Vikram pattern.
+By source: 24 of the 30 numbered, untagged CVs were screened out (marketing, strategy/consulting, students, consumer apps, fintech). So were 7 of 15 `pm_` and 6 of 15 `spm_` CVs: mostly JD-perfect profiles from HR-tech, banking, FMCG brand, consumer growth or IT delivery with no operations exposure. These are the Vikram pattern.
 
-**Is the screen too harsh?** We checked with the rubric itself. Of the 39 screened-out CVs, the highest rubric score is **51.3** (`11_tarun_joseph`, SPM), below the 55 shortlist bar. So on this batch the screen removed **nobody** the rubric would have shortlisted. It only removed reading time.
+**Is the screen too harsh?** We checked with the rubric itself. Of the 37 screened-out CVs, the highest rubric score is **40.0** (Nikhil Kapoor), well below the 55 shortlist bar. So on this batch the screen removed **nobody** the rubric would have shortlisted. It only removed reading time. The dashboard keeps this check running: any screened-out CV that the rubric rates 55+ gets a purple "check the screen" flag.
 
 ---
 
@@ -160,93 +160,98 @@ Each criterion is scored 0–4 on written anchors. Weighted score = Σ(score/4 �
 
 ## 9. Results on the 60 applications
 
-*A dry run of the real pipeline on 30 Sep 2026 (Gemini 3.6 Flash, temperature 0). Scores can move a few points between runs; the dashboard is the live source of truth.*
+*Live results from the Neon database on 1 Oct 2026 (Gemini 3.6 Flash, temperature 0). An earlier dry run gave the same top candidates; individual scores moved a few points between runs, so the dashboard is the live source of truth.*
 
-Reading the tables: "Came in as" is the role on the file (`pm_`/`spm_`) or "not specified" for the numbered CVs. C1–C5 are the five criterion scores for that track.
+Reading the tables: "Came in as" is the role on the file (`pm_`/`spm_`) or "not specified" for the numbered CVs. C1–C5 are the five criterion scores for that track. "Most like" is the past hire with the nearest C1–C5 profile in rubric.txt §6, computed in code.
 
 #### PM track (10 ranked)
 
-| # | Candidate (file) | Came in as | PM score | C1–C5 | Other role | Draft |
-|---|---|---|---|---|---|---|
-| 1 | Priya Krishnan (`pm_01_priya_krishnan.pdf`) | PM | **77.5** | 3 3 3 3 4 | 66.3 | **Invite** |
-| 2 | Ananya Rajan (`pm_05_ananya_rajan.pdf`) | PM | **71.3** | 4 2 3 1 4 | 61.3 | **Invite** |
-| 3 | Kabir Mehta (`pm_02_kabir_mehta.pdf`) | PM | **70.0** | 2 3 3 3 4 | 72.5 | **Invite** |
-| 4 | Virat Patel (`pm_04_virat_patel.pdf`) | PM | **65.0** | 4 1 3 1 4 | 58.8 | **Invite** |
-| 5 | Deepika Nair (`pm_03_deepika_nair.pdf`) | PM | **61.3** | 4 2 0 3 3 | 57.5 | **Invite** |
-| | *— interview line —* | | | | | |
-| 6 | Shrey Marathe (`24_shrey_marathe.pdf`) | not specified | **56.3** | 2 2 2 3 3 | 60.0 | Rejection |
-| 7 | Megha Gupta (`pm_09_megha_gupta.pdf`) | PM | **53.8** | 2 2 2 3 2 | 45.0 | Rejection |
-| 8 | Aditi Sharma (`pm_07_aditi_sharma.pdf`) | PM | **36.3** | 2 0 2 1 3 | 32.5 | Rejection |
-| 9 | Rohan Sane (`pm_10_rohan_sane.pdf`) | PM | **27.5** | 1 1 1 1 2 | 25.0 | Rejection |
-| 10 | Sneha Kulkarni (`14_sneha_kulkarni.pdf`) | not specified | **22.5** | 2 0 0 0 3 | 10.0 | Rejection |
+| # | Candidate (file) | Came in as | PM score | C1–C5 | Other role | Most like | Draft |
+|---|---|---|---|---|---|---|---|
+| 1 | Priya Krishnan (`pm_01_priya_krishnan.pdf`) | PM | **71.3** | 3 2 3 3 4 | 56.3 | Aditya (Exceeds) | **Invite** |
+| 2 | Ananya Rajan (`pm_05_ananya_rajan.pdf`) | PM | **71.3** | 4 2 3 1 4 | 61.3 | Aditya (Exceeds) | **Invite** |
+| 3 | Kabir Mehta (`pm_02_kabir_mehta.pdf`) | PM | **70.0** | 2 3 3 3 4 | 72.5 | Aditya (Exceeds) | **Invite** |
+| 4 | Virat Patel (`pm_04_virat_patel.pdf`) | PM | **65.0** | 4 1 3 1 4 | 53.8 | Aditya (Exceeds) | **Invite** |
+| 5 | Deepika Nair (`pm_03_deepika_nair.pdf`) | PM | **61.3** | 4 2 0 3 3 | 36.3 | Aditya (Exceeds) | **Invite** |
+| | *— interview line —* | | | | | | |
+| 6 | Megha Gupta (`pm_09_megha_gupta.pdf`) | PM | **56.3** | 2 2 2 3 3 | 45.0 | Aditya (Exceeds) | Rejection |
+| 7 | Shrey Marathe (`24_shrey_marathe.pdf`) | not specified | **46.3** | 2 2 0 3 3 | 41.3 | Aditya (Exceeds) | Rejection |
+| 8 | Aditi Sharma (`pm_07_aditi_sharma.pdf`) | PM | **36.3** | 2 0 1 3 2 | 32.5 | Preetham (Below) | Rejection |
+| 9 | Sneha Kulkarni (`14_sneha_kulkarni.pdf`) | not specified | **33.8** | 2 0 0 3 3 | 37.5 | Vikram (Meets) | Rejection |
+| 10 | Rohan Sane (`pm_10_rohan_sane.pdf`) | PM | **28.8** | 1 2 0 1 2 | 23.8 | Rahul (Meets) | Rejection |
 
-#### SPM track (11 ranked)
+#### SPM track (13 ranked)
 
-| # | Candidate (file) | Came in as | SPM score | C1–C5 | Other role | Draft |
-|---|---|---|---|---|---|---|
-| 1 | Poornima Nair (`spm_19_poornima_nair.pdf`) | SPM | **77.5** | 4 2 2 3 4 | 71.3 | **Invite** |
-| 2 | Siddharth Rao (`spm_16_siddharth_rao.pdf`) | SPM | **71.3** | 3 2 2 3 4 | 81.3 | **Invite** |
-| 3 | Aryan Verma (`spm_18_aryan_verma.pdf`) | SPM | **71.3** | 3 2 2 3 4 | 71.3 | **Invite** |
-| | *— interview line —* | | | | | |
-| 4 | Nalini Iyer (`spm_17_nalini_iyer.pdf`) | SPM | **48.8** | 3 0 0 2 4 | 66.3 | Rejection |
-| 5 | Varun Khanna (`spm_20_varun_khanna.pdf`) | SPM | **45.0** | 1 1 2 1 4 | 42.5 | Rejection |
-| 6 | Manish Agarwal (`spm_22_manish_agarwal.pdf`) | SPM | **42.5** | 2 0 2 2 2 | 41.3 | Rejection |
-| 7 | Preethi Suresh (`spm_23_preethi_suresh.pdf`) | SPM | **35.0** | 2 2 0 0 3 | 63.8 | Rejection |
-| 8 | Meera Krishnan (`26_meera_krishnan.pdf`) | not specified | **27.5** | 2 0 2 0 1 | 33.8 | Rejection |
-| 9 | Vikram Shetty (`08_vikram_shetty.pdf`) | not specified | **26.3** | 2 1 0 0 2 | 32.5 | Rejection |
-| 10 | Kritika Sharma (`spm_21_kritika_sharma.pdf`) | SPM | **26.3** | 1 0 0 3 1 | 17.5 | Rejection |
-| 11 | Sourav Das (`spm_25_sourav_das.pdf`) | SPM | **11.3** | 1 0 0 0 1 | 21.3 | Rejection |
+| # | Candidate (file) | Came in as | SPM score | C1–C5 | Other role | Most like | Draft |
+|---|---|---|---|---|---|---|---|
+| 1 | Siddharth Rao (`spm_16_siddharth_rao.pdf`) | SPM | **80.0** | 3 3 2 4 4 | 88.8 | Lavanya (Exceeds) | **Invite** |
+| 2 | Poornima Nair (`spm_19_poornima_nair.pdf`) | SPM | **71.3** | 3 2 3 3 3 | 71.3 | Aditya (Exceeds) | **Invite** |
+| 3 | Aryan Verma (`spm_18_aryan_verma.pdf`) | SPM | **61.3** | 3 2 0 3 4 | 77.5 | Aditya (Exceeds) | **Invite** |
+| | *— interview line —* | | | | | | |
+| 4 | Tarun Joseph (`11_tarun_joseph.pdf`) | not specified | **51.3** | 1 0 2 3 4 | 47.5 | Aditya (Exceeds) | Rejection |
+| 5 | Nalini Iyer (`spm_17_nalini_iyer.pdf`) | SPM | **48.8** | 3 0 0 2 4 | 66.3 | Aditya (Exceeds) | Rejection |
+| 6 | Manish Agarwal (`spm_22_manish_agarwal.pdf`) | SPM | **47.5** | 2 0 2 3 2 | 33.8 | Preetham (Below) | Rejection |
+| 7 | Varun Khanna (`spm_20_varun_khanna.pdf`) | SPM | **40.0** | 1 1 2 0 4 | 50.0 | Rahul (Meets) | Rejection |
+| 8 | Preethi Suresh (`spm_23_preethi_suresh.pdf`) | SPM | **40.0** | 2 2 1 0 3 | 63.8 | Rahul (Meets) | Rejection |
+| 9 | Meera Krishnan (`26_meera_krishnan.pdf`) | not specified | **32.5** | 2 0 2 0 2 | 36.3 | Preetham (Below) | Rejection |
+| 10 | Kritika Sharma (`spm_21_kritika_sharma.pdf`) | SPM | **16.3** | 1 0 0 1 1 | 13.8 | Vikram (Meets) | Rejection |
+| 11 | Vikram Shetty (`08_vikram_shetty.pdf`) | not specified | **15.0** | 0 0 0 0 3 | 11.3 | Rahul (Meets) | Rejection |
+| 12 | Abhishek Tiwari (`27_abhishek_tiwari.pdf`) | not specified | **15.0** | 0 0 0 1 2 | 5.0 | Vikram (Meets) | Rejection |
+| 13 | Sourav Das (`spm_25_sourav_das.pdf`) | SPM | **11.3** | 1 0 0 0 1 | 13.8 | Vikram (Meets) | Rejection |
 
-#### Screened out (39)
+#### Screened out (37)
 
 | Candidate (file) | Came in as | Missed must-have(s) | Rubric PM / SPM |
 |---|---|---|---|
 | Rohan Mehta (`01_rohan_mehta.pdf`) | not specified | **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs) | 20.0 / 22.5 |
-| Priya Sharma (`02_priya_sharma.pdf`) | not specified | **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 0.0 / 0.0 |
-| Arnav Sen (`03_arnav_sen.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users; **Evidence** – 0 verified quantified outcome(s) (needs 1) | 21.3 / 26.3 |
-| Arjun Verma (`04_arjun_verma.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 38.8 / 42.5 |
+| Priya Sharma (`02_priya_sharma.pdf`) | not specified | **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs); **Ops proximity** – No operations-heavy work or ops users; **Evidence** – 0 verified quantified outcome(s) (needs 1) | 0.0 / 0.0 |
+| Arnav Sen (`03_arnav_sen.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users; **Evidence** – 0 verified quantified outcome(s) (needs 1) | 23.8 / 31.3 |
+| Arjun Verma (`04_arjun_verma.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 21.3 / 22.5 |
 | Ishaan Roy (`05_ishaan_roy.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 7.5 / 10.0 |
-| Kavya Patel (`06_kavya_patel.pdf`) | not specified | **Experience floor** – 0.0 yrs full-time (needs 2.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 7.5 / 10.0 |
-| Aditya Nair (`07_aditya_nair.pdf`) | not specified | **Evidence** – 0 verified quantified outcome(s) (needs 1) | 13.8 / 16.3 |
-| Rahul Gupta (`09_rahul_gupta.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users; **Evidence** – 0 verified quantified outcome(s) (needs 1) | 22.5 / 23.8 |
-| Nikhil Sharma (`10_nikhil_sharma.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 17.5 / 13.8 |
-| Tarun Joseph (`11_tarun_joseph.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 47.5 / 51.3 |
-| Suresh Raj (`12_suresh_raj.pdf`) | not specified | **Experience floor** – 1.6 yrs full-time (needs 2.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 18.8 / 13.8 |
-| Mohit Singh (`13_mohit_singh.pdf`) | not specified | **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs) | 23.8 / 28.8 |
+| Kavya Patel (`06_kavya_patel.pdf`) | not specified | **Experience floor** – 0.0 yrs full-time (needs 2.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 0.0 / 0.0 |
+| Aditya Nair (`07_aditya_nair.pdf`) | not specified | **Evidence** – 0 verified quantified outcome(s) (needs 1) | 16.3 / 11.3 |
+| Rahul Gupta (`09_rahul_gupta.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users; **Evidence** – 0 verified quantified outcome(s) (needs 1) | 12.5 / 10.0 |
+| Nikhil Sharma (`10_nikhil_sharma.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 17.5 / 18.8 |
+| Suresh Raj (`12_suresh_raj.pdf`) | not specified | **Experience floor** – 1.6 yrs full-time (needs 2.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 12.5 / 0.0 |
+| Mohit Singh (`13_mohit_singh.pdf`) | not specified | **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs) | 33.8 / 38.8 |
 | Ravi Kumar (`15_ravi_kumar.pdf`) | not specified | **Experience floor** – 1.3 yrs full-time (needs 2.0 yrs); **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs); **Ops proximity** – No operations-heavy work or ops users; **Evidence** – 0 verified quantified outcome(s) (needs 1) | 17.5 / 18.8 |
-| Shiva Kumar (`16_shiva_kumar.pdf`) | not specified | **Experience floor** – 1.5 yrs full-time (needs 2.0 yrs); **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs); **Ops proximity** – No operations-heavy work or ops users; **Evidence** – 0 verified quantified outcome(s) (needs 1) | 0.0 / 5.0 |
-| Pranav Joshi (`17_pranav_joshi.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 13.8 / 15.0 |
-| Divya Iyer (`18_divya_iyer.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 35.0 / 32.5 |
+| Shiva Kumar (`16_shiva_kumar.pdf`) | not specified | **Experience floor** – 1.6 yrs full-time (needs 2.0 yrs); **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs); **Ops proximity** – No operations-heavy work or ops users; **Evidence** – 0 verified quantified outcome(s) (needs 1) | 0.0 / 0.0 |
+| Pranav Joshi (`17_pranav_joshi.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 32.5 / 28.8 |
+| Divya Iyer (`18_divya_iyer.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 15.0 / 13.8 |
 | Vivek Patil (`19_vivek_patil.pdf`) | not specified | **Experience floor** – 0.0 yrs full-time (needs 2.0 yrs); **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 0.0 / 0.0 |
-| Deepak Yadav (`20_deepak_yadav.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 26.3 / 35.0 |
-| Aryan Kulkarni (`21_aryan_kulkarni.pdf`) | not specified | **Genuine/unique** – Duplicate of a CV already received | 40.0 / 36.3 |
-| Harsh Reddy (`22_harsh_reddy.pdf`) | not specified | **Experience floor** – 0.0 yrs full-time (needs 2.0 yrs); **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs) | 26.3 / 20.0 |
-| Karan Das (`23_karan_das.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 15.0 / 18.8 |
-| Avinash Mukherjee (`25_avinash_mukherjee.pdf`) | not specified | **Experience floor** – 1.3 yrs full-time (needs 2.0 yrs); **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs) | 43.8 / 35.0 |
-| Abhishek Tiwari (`27_abhishek_tiwari.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 11.3 / 8.8 |
-| Manish Kapoor (`28_manish_kapoor.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 13.8 / 18.8 |
-| Rohan Basu (`29_rohan_basu.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 11.3 / 15.0 |
-| Aman Borkar (`30_aman_borkar.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 2.5 / 0.0 |
-| Prashant Kumar (`pm_06_prashant_kumar.pdf`) | PM | **Ops proximity** – No operations-heavy work or ops users | 22.5 / 20.0 |
-| Nishant Joshi (`pm_08_nishant_joshi.pdf`) | PM | **Ops proximity** – No operations-heavy work or ops users | 22.5 / 30.0 |
-| Sneha Patil (`pm_11_sneha_patil.pdf`) | PM | **Ops proximity** – No operations-heavy work or ops users | 6.3 / 5.0 |
-| Akash Verma (`pm_12_akash_verma.pdf`) | PM | **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 3.8 / 0.0 |
-| Divya Menon (`pm_13_divya_menon.pdf`) | PM | **Ops proximity** – No operations-heavy work or ops users | 5.0 / 5.0 |
+| Deepak Yadav (`20_deepak_yadav.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 16.3 / 20.0 |
+| Aryan Kulkarni (`21_aryan_kulkarni.pdf`) | not specified | **Genuine/unique** – Duplicate of a CV already received | 31.3 / 20.0 |
+| Harsh Reddy (`22_harsh_reddy.pdf`) | not specified | **Experience floor** – 0.0 yrs full-time (needs 2.0 yrs); **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs) | 26.3 / 15.0 |
+| Karan Das (`23_karan_das.pdf`) | not specified | **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 21.3 / 22.5 |
+| Avinash Mukherjee (`25_avinash_mukherjee.pdf`) | not specified | **Experience floor** – 1.3 yrs full-time (needs 2.0 yrs); **Owned what gets built** – 0.5 yrs owning what gets built (needs 1.0 yrs) | 2.5 / 5.0 |
+| Manish Kapoor (`28_manish_kapoor.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 11.3 / 18.8 |
+| Rohan Basu (`29_rohan_basu.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 11.3 / 20.0 |
+| Aman Borkar (`30_aman_borkar.pdf`) | not specified | **Ops proximity** – No operations-heavy work or ops users | 6.3 / 0.0 |
+| Prashant Kumar (`pm_06_prashant_kumar.pdf`) | PM | **Ops proximity** – No operations-heavy work or ops users | 22.5 / 25.0 |
+| Nishant Joshi (`pm_08_nishant_joshi.pdf`) | PM | **Ops proximity** – No operations-heavy work or ops users | 28.8 / 38.8 |
+| Sneha Patil (`pm_11_sneha_patil.pdf`) | PM | **Ops proximity** – No operations-heavy work or ops users | 15.0 / 8.8 |
+| Akash Verma (`pm_12_akash_verma.pdf`) | PM | **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 13.8 / 15.0 |
+| Divya Menon (`pm_13_divya_menon.pdf`) | PM | **Ops proximity** – No operations-heavy work or ops users | 6.3 / 5.0 |
 | Ravi Shankar (`pm_14_ravi_shankar.pdf`) | PM | **Ops proximity** – No operations-heavy work or ops users | 8.8 / 13.8 |
 | Tanvi Jain (`pm_15_tanvi_jain.pdf`) | PM | **Owned what gets built** – 0.0 yrs owning what gets built (needs 1.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 6.3 / 3.8 |
-| Nikhil Kapoor (`spm_24_nikhil_kapoor.pdf`) | SPM | **Ops proximity** – No operations-heavy work or ops users | 43.8 / 31.3 |
-| Anupama Singh (`spm_26_anupama_singh.pdf`) | SPM | **Owned what gets built** – 0.0 yrs owning what gets built (needs 3.0 yrs) | 2.5 / 5.0 |
-| Gaurav Yadav (`spm_27_gaurav_yadav.pdf`) | SPM | **Ops proximity** – No operations-heavy work or ops users | 15.0 / 12.5 |
+| Nikhil Kapoor (`spm_24_nikhil_kapoor.pdf`) | SPM | **Ops proximity** – No operations-heavy work or ops users | 40.0 / 26.3 |
+| Anupama Singh (`spm_26_anupama_singh.pdf`) | SPM | **Owned what gets built** – 0.0 yrs owning what gets built (needs 3.0 yrs); **Ops proximity** – No operations-heavy work or ops users | 2.5 / 5.0 |
+| Gaurav Yadav (`spm_27_gaurav_yadav.pdf`) | SPM | **Ops proximity** – No operations-heavy work or ops users | 8.8 / 13.8 |
 | Meena Pillai (`spm_28_meena_pillai.pdf`) | SPM | **Owned what gets built** – 0.0 yrs owning what gets built (needs 3.0 yrs); **Ops proximity** – No operations-heavy work or ops users; **Evidence** – 0 verified quantified outcome(s) (needs 1) | 6.3 / 5.0 |
-| Rajesh Kumar (`spm_29_rajesh_kumar.pdf`) | SPM | **Owned what gets built** – 0.0 yrs owning what gets built (needs 3.0 yrs); **Evidence** – 0 verified quantified outcome(s) (needs 1) | 15.0 / 16.3 |
+| Rajesh Kumar (`spm_29_rajesh_kumar.pdf`) | SPM | **Owned what gets built** – 0.0 yrs owning what gets built (needs 3.0 yrs); **Evidence** – 0 verified quantified outcome(s) (needs 1) | 7.5 / 11.3 |
 | Priya Iyer (`spm_30_priya_iyer.pdf`) | SPM | **Ops proximity** – No operations-heavy work or ops users | 2.5 / 10.0 |
 
 ### What Arjun should notice
 
-- **The five PM invites all sat in an operator's chair before product** (3PL, warehouse, freight forwarder at Mundra, a family CHA firm). That's Pattern A, as the past hires predicted.
-- **Cross-role signals.** Siddharth Rao (applied SPM) scores **81.3 as a PM**, the highest PM score in the batch. Kabir Mehta (applied PM) scores 72.5 as an SPM. Nalini Iyer (applied SPM, 48.8) scores 66.3 as a PM. The dashboard flags these as "Scores higher for PM/SPM".
-- **The SPM bench is thin above the line:** only 3 reach 55. Nalini Iyer and Varun Khanna are the next looks if Arjun wants a fourth interview.
-- **Shrey Marathe** (untagged, #6 PM at 56.3) is the only numbered CV that came close to the line.
+- **All five PM invites sat in an operator's chair before product** (3PL, warehouse, freight forwarder at Mundra, a family CHA firm). That's Pattern A, as the past hires predicted.
+- **One candidate is at Lavanya's level: Siddharth Rao.** He is the only one whose profile is nearest to Lavanya, Kargo's model PM. He is #1 SPM (80.0) and also scores **88.8 as a PM**, the highest PM score in the batch. Almost every other strong candidate is nearest to Aditya (Exceeds, but the lowest of the five): a solid bench, not a set of Lavanyas.
+- **Cross-role signals:** Kabir Mehta (applied PM) scores 72.5 as an SPM; Aryan Verma 77.5, Nalini Iyer 66.3 and Preethi Suresh 63.8 (all applied SPM) score higher as PMs. The dashboard flags these.
+- **The SPM bench is thin above the line:** only 3 reach 55. Tarun Joseph (51.3) and Nalini Iyer (48.8) are the next looks if Arjun wants more SPM interviews.
+- **Megha Gupta** (PM #6, 56.3) clears 55 but sits just below the top-5 line. She's the first person to move up if a PM invite falls through.
+
+### Independent cross-check
+
+A classmate built the same case separately (different rubric wording, Supabase, no hard screen). Their top 5 per role are **the same ten people** as ours. The difference is the line: they invite their top 5 regardless of score (their scores cluster at 94–100); we also require 55+, which drops Nalini Iyer and Varun Khanna from the SPM invites.
 
 ---
 
@@ -276,14 +281,16 @@ After the fixes, a check across all 68 CVs (60 applications + 8 hires) found **n
 |---|---|
 | App | Next.js 16 (App Router) on Vercel |
 | Database | Neon Postgres: `rubric_criteria` (10 rows), `candidates` (personal details, redacted CV, screen, scores, brief, decision), `scores` (per criterion + quote), `email_drafts` |
-| AI | Gemini 3.6 Flash, used for three things: screen facts, rubric scoring, brief/email writing. Structured JSON output, temperature 0 for judging |
+| AI | Gemini 3.6 Flash, used for three things: screen facts, rubric scoring, brief/email writing. Structured JSON output, temperature 0 for judging. Several API keys can be listed; an expired or rate-limited key is skipped automatically |
 | Email | Resend, one call per Confirm click |
-| Code map | `lib/pii.ts` Stage 0 · `lib/screening.ts` Stage 1 · `lib/scoring.ts` Stage 2 · `lib/pipeline.ts` ranking + line · `lib/writing.ts` brief/email · `lib/send.ts` Resend |
+| Code map | `lib/pii.ts` Stage 0 · `lib/screening.ts` Stage 1 · `lib/scoring.ts` Stage 2 · `lib/pipeline.ts` ranking + line · `lib/past-hires.ts` "most like" · `lib/writing.ts` brief/email · `lib/send.ts` Resend |
+| Pages | Candidates (PM / SPM / Screened-out tabs, funnel) · candidate page (stepper, screen, brief, scores with quotes, email editor, Confirm & send) · Outbox · Upload (drag and drop) · Scoring model · password login |
 | Scripts | `npm run db:setup` (tables + rubric) · `npm run ingest -- <folder>` (bulk load, role from `pm_`/`spm_` prefix) · `npm run screen-report -- <folder>` (dry run, no DB) · `npm run calibrate -- <folder>` (past hires vs rubric.txt) |
 
 ## 13. Known limits and next steps
 
 1. **Single run, small sample.** The rubric is calibrated on 8 hires, and model scores move a few points between runs. Re-check the weights after the first 2–3 new hires have a rating.
 2. **The ops gate narrows the pool on purpose.** It's the strongest signal in Kargo's history, but it will reject a great PM from outside logistics. The safety-net flag and Arjun's override exist for exactly that case.
-3. **Not yet live.** The database, deployment and Resend delivery still need the Neon connection string and a Vercel import.
-4. **Resend sandbox.** Mail goes only to the account owner's inbox until a domain is verified.
+3. **Live, but the last check is open.** Neon is loaded and the app is deployed at https://mesa-ai-kargo-hiring.vercel.app (password-protected). Checkpoint B-3 (click Confirm & send → email arrives with the real name → status shows Sent) is still to be run by Arjun.
+4. **No automated tests yet.** Verification so far is scripted checks (PII leak scan over 68 CVs, calibration math, draft lint) and manual browser walkthroughs.
+5. **Resend sandbox.** Mail goes only to the account owner's inbox until a domain is verified.

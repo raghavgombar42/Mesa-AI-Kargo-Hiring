@@ -102,7 +102,13 @@ ${input.content}`;
   });
   let body = out.body.trim();
   if (!/^hi \[name\],/i.test(body)) body = `Hi [NAME],\n\n${body.replace(/^(hi|hello|dear)\b[^\n]*\n+/i, "")}`;
-  return { subject: out.subject.trim(), body };
+  return { subject: out.subject.trim(), body: normaliseSignOff(body) };
+}
+
+/** Always end with the sign-off on its own lines (the model sometimes runs it into the last sentence). */
+export function normaliseSignOff(body: string) {
+  const sig = new RegExp(`\\s*${SENDER_NAME.replace(/\s+/g, "\\s+")}[\\s,]*Founder,?\\s*${COMPANY_NAME}\\.?\\s*$`, "i");
+  return `${body.trim().replace(sig, "").trim()}\n\n${SENDER_NAME}\nFounder, ${COMPANY_NAME}`;
 }
 
 export function fillName(text: string, first: string) {
