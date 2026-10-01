@@ -1,16 +1,26 @@
 import { GoogleGenAI } from "@google/genai";
 import { GEMINI_MODEL } from "./config";
 
-let ai: GoogleGenAI | null = null;
+// GEMINI_API_KEY may hold several comma-separated keys. If one is rejected
+// (expired / revoked) or rate-limited, calls move on to the next.
+const clients = new Map<string, GoogleGenAI>();
+let current = 0;
+
+function keys() {
+  const list = (process.env.GEMINI_API_KEY ?? "").split(",").map((k) => k.trim()).filter(Boolean);
+  if (!list.length) throw new Error("GEMINI_API_KEY is not set");
+  return list;
+}
 
 function client() {
-  if (!ai) {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) throw new Error("GEMINI_API_KEY is not set");
-    ai = new GoogleGenAI({ apiKey });
-  }
-  return ai;
+  const list = keys();
+  const key = list[current % list.length];
+  if (!clients.has(key)) clients.set(key, new GoogleGenAI({ apiKey: key }));
+  return clients.get(key)!;
 }
+
+const isKeyProblem = (err: unknown) =>
+  /\b(401|403|429)\b|UNAUTHENTICATED|PERMISSION_DENIED|API_KEY_INVALID|RESOURCE_EXHAUSTED/i.test(String((err as Error)?.message ?? err));
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -36,6 +46,7 @@ export async function generateJSON<T>(opts: {
   temperature?: number;
 }): Promise<T> {
   let lastErr: unknown;
+  let keySwitches = 0;
   for (let attempt = 0; attempt < 5; attempt++) {
     try {
       const res = await client().models.generateContent({
@@ -53,6 +64,12 @@ export async function generateJSON<T>(opts: {
       return JSON.parse(text) as T;
     } catch (err) {
       lastErr = err;
+      if (isKeyProblem(err) && keySwitches < keys().length - 1) {
+        current++;
+        keySwitches++;
+        attempt--; // a key switch doesn't use up a retry
+        continue;
+      }
       const parseError = err instanceof SyntaxError;
       if (!parseError && !isRetryable(err)) break;
       await sleep(retryDelayMs(err, attempt));
