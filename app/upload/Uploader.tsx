@@ -70,14 +70,29 @@ export function Uploader() {
             <option value="AUTO">Not specified - let the screen route it</option>
           </select>
         </label>
-        <input
-          type="file"
-          multiple
-          accept=".pdf,.docx,.txt"
-          disabled={busy}
-          onChange={(e) => setItems(Array.from(e.target.files ?? []).map((file) => ({ file, state: "queued" as const })))}
-          className="text-sm file:mr-3 file:rounded file:border file:border-stone-300 file:bg-stone-50 file:px-3 file:py-1.5"
-        />
+        <label
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            e.preventDefault();
+            if (busy) return;
+            const files = Array.from(e.dataTransfer.files).filter((f) => /\.(pdf|docx|txt)$/i.test(f.name));
+            setItems(files.map((file) => ({ file, state: "queued" as const })));
+          }}
+          className={`flex min-w-64 flex-1 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed px-4 py-6 text-center ${
+            busy ? "border-stone-200 text-stone-400" : "border-stone-300 hover:border-stone-500 hover:bg-stone-50"
+          }`}
+        >
+          <span className="font-medium">{items.length ? `${items.length} file${items.length === 1 ? "" : "s"} selected` : "Drop CVs here or click to choose"}</span>
+          <span className="text-xs text-stone-500">PDF, DOCX or TXT · one or many</span>
+          <input
+            type="file"
+            multiple
+            accept=".pdf,.docx,.txt"
+            disabled={busy}
+            onChange={(e) => setItems(Array.from(e.target.files ?? []).map((file) => ({ file, state: "queued" as const })))}
+            className="sr-only"
+          />
+        </label>
         <button
           onClick={start}
           disabled={busy || !role || items.length === 0}

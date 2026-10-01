@@ -34,3 +34,49 @@ export function Card({ title, children, className = "" }: { title?: React.ReactN
     </section>
   );
 }
+
+export function ScoreBar({ score }: { score: number }) {
+  const band = bandFor(score);
+  const fill = { green: "bg-emerald-600", blue: "bg-sky-600", amber: "bg-amber-500", gray: "bg-stone-400" }[band?.tone ?? "gray"];
+  return (
+    <div className="flex items-center gap-2">
+      <span className="w-10 text-right font-mono text-base font-semibold">{score.toFixed(1)}</span>
+      <span className="h-1.5 w-20 overflow-hidden rounded-full bg-stone-100">
+        <span className={`block h-full ${fill}`} style={{ width: `${Math.max(2, Math.min(100, score))}%` }} />
+      </span>
+    </div>
+  );
+}
+
+export function PastHireTag({ name, rating, title }: { name: string; rating: string; title?: string }) {
+  const tone = rating === "Exceeds" ? "bg-emerald-50 text-emerald-800 ring-emerald-200" : "bg-stone-100 text-stone-600 ring-stone-200";
+  return (
+    <span title={title} className={`inline-block whitespace-nowrap rounded px-1.5 py-0.5 text-xs ring-1 ${tone}`}>
+      {name.split(" ")[0]} · {rating}
+    </span>
+  );
+}
+
+export function Stepper({ steps }: { steps: { label: string; state: "done" | "current" | "todo" | "skipped" }[] }) {
+  return (
+    <ol className="flex overflow-hidden rounded-lg border border-stone-200 bg-white text-xs">
+      {steps.map((s, i) => (
+        <li
+          key={s.label}
+          className={`flex flex-1 items-center justify-center gap-1 px-2 py-2 text-center ${i ? "border-l border-stone-200" : ""} ${
+            s.state === "done"
+              ? "bg-emerald-50 text-emerald-800"
+              : s.state === "current"
+                ? "bg-stone-900 font-medium text-white"
+                : s.state === "skipped"
+                  ? "bg-red-50 text-red-700"
+                  : "text-stone-400"
+          }`}
+        >
+          {s.state === "done" ? "✓ " : s.state === "skipped" ? "✗ " : ""}
+          {s.label}
+        </li>
+      ))}
+    </ol>
+  );
+}

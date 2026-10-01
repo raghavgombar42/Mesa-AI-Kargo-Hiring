@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { deleteCandidateAction, overrideScreenAction, rescoreAction } from "@/app/actions";
 import { SubmitButton } from "@/components/SubmitButton";
-import { BandBadge, Card, CriterionCell } from "@/components/ui";
+import { BandBadge, Card, CriterionCell, Stepper } from "@/components/ui";
+import { closestPastHire } from "@/lib/past-hires";
 import { getCriteria, sql, type CandidateRow, type EmailDraftRow, type ScoreRow } from "@/lib/db";
 import { candidateFlags, isScreenedIn, rankRole, screenLooksWrong } from "@/lib/pipeline";
 import { GATES } from "@/lib/screening";
@@ -65,6 +66,16 @@ export default async function CandidatePage(props: PageProps<"/candidates/[id]">
           </form>
         </div>
       </div>
+
+      <Stepper
+        steps={[
+          { label: "Uploaded", state: "done" },
+          { label: "Screened", state: !c.screen ? (c.status === "error" ? "todo" : "current") : isScreenedIn(c) ? "done" : "skipped" },
+          { label: "Scored", state: c.status === "scored" ? "done" : c.status === "scoring" ? "current" : "todo" },
+          { label: draft ? (draft.type === "invite" ? "Invite drafted" : "Rejection drafted") : "Draft", state: draft ? "done" : c.status === "scored" ? "current" : "todo" },
+          { label: draft?.status === "sent" ? "Sent" : "Arjun confirms", state: draft?.status === "sent" ? "done" : draft ? "current" : "todo" },
+        ]}
+      />
 
       {c.status === "error" && <Card className="border-red-200 bg-red-50 text-red-800">Scoring failed: {c.error}. Click Re-score to try again.</Card>}
       {c.status === "scoring" && <Card>Scoring in progress… refresh in a few seconds.</Card>}
@@ -146,6 +157,7 @@ export default async function CandidatePage(props: PageProps<"/candidates/[id]">
             aboveLine={me?.aboveLine ?? false}
             decisionNote={c.decision_note}
           />
+          {c.status === "scored" && <PastHireCard profile={[1, 2, 3, 4, 5].map((i) => scores.find((x) => x.criterion_code === `${c.applied_role}-${i}`)?.score ?? 0)} />}
           <PersonalForm id={id} name={p.name ?? ""} email={p.email ?? ""} phone={p.phone ?? ""} />
         </div>
       </div>
@@ -200,6 +212,25 @@ function ScreenCard({ c }: { c: CandidateRow }) {
           <SubmitButton name="override" value="reset" pendingText="Updating…" className="rounded px-2 py-1 text-stone-500 underline">Undo override</SubmitButton>
         )}
       </form>
+    </Card>
+  );
+}
+
+function PastHireCard({ profile }: { profile: number[] }) {
+  const { hire } = closestPastHire(profile);
+  return (
+    <Card title="Most like this past hire">
+      <p>
+        <b>{hire.name}</b> <span className="text-stone-500">· {hire.role} · rated </span>
+        <b className={hire.rating === "Exceeds" ? "text-emerald-700" : "text-stone-700"}>{hire.rating}</b>
+      </p>
+      <div className="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs">
+        <span className="text-stone-500">This candidate</span>
+        <span className="flex gap-1">{profile.map((p, i) => <CriterionCell key={i} score={p} />)}</span>
+        <span className="text-stone-500">{hire.name.split(" ")[0]}</span>
+        <span className="flex gap-1">{hire.profile.map((p, i) => <CriterionCell key={i} score={p} />)}</span>
+      </div>
+      <p className="mt-2 text-xs text-stone-500">Nearest match on the five rubric criteria (C1–C5), using the past-hire scores in rubric.txt.</p>
     </Card>
   );
 }
