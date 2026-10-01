@@ -5,7 +5,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { sql } from "../lib/db";
-import { ingestCv, refreshDrafts } from "../lib/pipeline";
+import { ingestCv, refreshDrafts, scoreStoredCandidate } from "../lib/pipeline";
 import type { Role } from "../lib/rubric-data";
 
 const roleFromFile = (f: string): Role | "AUTO" => (/^spm_/i.test(f) ? "SPM" : /^pm_/i.test(f) ? "PM" : "AUTO");
@@ -28,6 +28,17 @@ async function main() {
       console.log(`ok   ${f} (${((Date.now() - t) / 1000).toFixed(1)}s)`);
     } catch (e) {
       console.log(`FAIL ${f}: ${(e as Error).message}`);
+    }
+  }
+
+  // Retry anything that failed or got stuck mid-scoring on an earlier run.
+  const retry = (await sql()`SELECT id, file_name FROM candidates WHERE status <> 'scored'`) as { id: string; file_name: string }[];
+  for (const r of retry) {
+    try {
+      await scoreStoredCandidate(r.id);
+      console.log(`ok   ${r.file_name} (retried)`);
+    } catch (e) {
+      console.log(`FAIL ${r.file_name} (retry): ${(e as Error).message.slice(0, 200)}`);
     }
   }
 

@@ -19,6 +19,8 @@ export async function fileToText(fileName: string, bytes: Uint8Array): Promise<s
   }
 
   text = text
+    // Postgres rejects NUL bytes; some PDFs embed them (and other control chars) in text runs.
+    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "")
     .replace(/\r\n?/g, "\n")
     .replace(/[ \t ]+/g, " ")
     .split("\n")
