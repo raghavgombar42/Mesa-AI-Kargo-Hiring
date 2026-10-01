@@ -13,10 +13,10 @@ export function BandBadge({ score }: { score: number | null }) {
   return <span className={`inline-block rounded px-1.5 py-0.5 text-xs font-medium ${TONES[band.tone]}`}>{band.label}</span>;
 }
 
-export function CriterionCell({ score }: { score: number | undefined }) {
+export function CriterionCell({ score, wide, title }: { score: number | undefined; wide?: boolean; title?: string }) {
   const s = score ?? 0;
   const tone = s >= 4 ? "bg-emerald-600 text-white" : s === 3 ? "bg-emerald-200" : s === 2 ? "bg-amber-100" : s === 1 ? "bg-stone-200" : "bg-stone-100 text-stone-400";
-  return <span className={`inline-flex h-6 w-6 items-center justify-center rounded font-mono text-xs ${tone}`}>{s}</span>;
+  return <span title={title} className={`inline-flex h-6 ${wide ? "w-9" : "w-6"} items-center justify-center rounded font-mono text-xs ${tone}`}>{s}</span>;
 }
 
 export function EmailStatus({ type, status }: { type?: string; status?: string }) {

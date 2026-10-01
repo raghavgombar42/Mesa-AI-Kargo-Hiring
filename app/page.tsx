@@ -6,7 +6,7 @@ import { INVITE_MIN_SCORE, INVITE_TOP_N } from "@/lib/config";
 import { sql, type CandidateRow, type EmailDraftRow, type ScoreRow } from "@/lib/db";
 import { candidateFlags, rankRole, roleScore, screenedOut, screenLooksWrong } from "@/lib/pipeline";
 import type { Role } from "@/lib/rubric-data";
-import { closestPastHire } from "@/lib/past-hires";
+import { closestPastHire, CRITERION_LONG, CRITERION_SHORT } from "@/lib/past-hires";
 import { failedGates } from "@/lib/screening";
 
 type Tab = Role | "OUT";
@@ -92,6 +92,14 @@ export default async function Dashboard(props: PageProps<"/">) {
         </Card>
       )}
 
+      {tab !== "OUT" && (
+        <p className="text-xs text-stone-500">
+          <b className="font-medium text-stone-700">Criteria (0–4):</b> Ops = sat in the operator&apos;s chair · Build = built a fix nobody asked for that
+          others adopted · Break = contained a break without escalating · Spec = turned an ops problem into something engineers built · Owner = sole
+          owner, no layer above. <b className="font-medium text-stone-700">Most like</b> = the past Kargo hire with the closest pattern of strengths.
+        </p>
+      )}
+
       {tab === "OUT" ? (
         <ScreenedOutTable rows={out} />
       ) : (
@@ -129,9 +137,15 @@ function RankedTable({ role, ranked, byCandidate }: { role: Role; ranked: Awaite
             <th className="px-3 py-2">Candidate</th>
             <th className="px-3 py-2">{role} score</th>
             <th className="px-3 py-2">Band</th>
-            <th className="px-3 py-2" title="C1 Operator's Chair · C2 Unasked Build · C3 Absorbs the Break · C4 Translation · C5 Sole Owner">C1–C5</th>
+            <th className="px-3 py-2">
+              <div className="flex gap-1">
+                {CRITERION_SHORT.map((l, i) => (
+                  <span key={l} title={`C${i + 1} · ${CRITERION_LONG[i]}`} className="w-9 cursor-help text-center font-normal">{l}</span>
+                ))}
+              </div>
+            </th>
             <th className="px-3 py-2 text-right">{other}</th>
-            <th className="px-3 py-2" title="The past Kargo hire whose rubric profile is closest">Most like</th>
+            <th className="px-3 py-2" title="The past Kargo hire with the most similar pattern of strengths across the five criteria">Most like (past hire)</th>
             <th className="px-3 py-2">Email</th>
           </tr>
         </thead>
@@ -169,11 +183,12 @@ function RankedTable({ role, ranked, byCandidate }: { role: Role; ranked: Awaite
                   <td className="px-3 py-2.5"><ScoreBar score={c.score} /></td>
                   <td className="px-3 py-2.5"><BandBadge score={c.score} /></td>
                   <td className="px-3 py-2.5">
-                    <div className="flex gap-1">{profile.map((p, i) => <CriterionCell key={i} score={p} />)}</div>
+                    <div className="flex gap-1">{profile.map((p, i) => <CriterionCell key={i} score={p} wide title={`${CRITERION_LONG[i]}: ${p}/4`} />)}</div>
                   </td>
                   <td className="px-3 py-2.5 text-right font-mono text-stone-500">{c.otherScore?.toFixed(1)}</td>
                   <td className="px-3 py-2.5">
                     <PastHireTag name={like.hire.name} rating={like.hire.rating} title={`${like.hire.name}, ${like.hire.role} (${like.hire.rating}) · profile ${like.hire.profile.join(" ")}`} />
+                    {like.shared.length > 0 && <div className="mt-0.5 text-xs text-stone-500">both strong: {like.shared.join(", ")}</div>}
                   </td>
                   <td className="whitespace-nowrap px-3 py-2.5"><EmailStatus type={c.draft?.type} status={c.draft?.status} /></td>
                 </tr>

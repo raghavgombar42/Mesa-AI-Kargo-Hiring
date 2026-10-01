@@ -4,7 +4,7 @@ import { connection } from "next/server";
 import { deleteCandidateAction, overrideScreenAction, rescoreAction } from "@/app/actions";
 import { SubmitButton } from "@/components/SubmitButton";
 import { BandBadge, Card, CriterionCell, Stepper } from "@/components/ui";
-import { closestPastHire } from "@/lib/past-hires";
+import { closestPastHire, CRITERION_LONG, CRITERION_SHORT } from "@/lib/past-hires";
 import { getCriteria, sql, type CandidateRow, type EmailDraftRow, type ScoreRow } from "@/lib/db";
 import { candidateFlags, isScreenedIn, rankRole, screenLooksWrong } from "@/lib/pipeline";
 import { GATES } from "@/lib/screening";
@@ -217,7 +217,7 @@ function ScreenCard({ c }: { c: CandidateRow }) {
 }
 
 function PastHireCard({ profile }: { profile: number[] }) {
-  const { hire } = closestPastHire(profile);
+  const { hire, shared } = closestPastHire(profile);
   return (
     <Card title="Most like this past hire">
       <p>
@@ -225,12 +225,15 @@ function PastHireCard({ profile }: { profile: number[] }) {
         <b className={hire.rating === "Exceeds" ? "text-emerald-700" : "text-stone-700"}>{hire.rating}</b>
       </p>
       <div className="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs">
+        <span />
+        <span className="flex gap-1">{CRITERION_SHORT.map((l, i) => <span key={l} title={CRITERION_LONG[i]} className="w-9 text-center text-stone-500">{l}</span>)}</span>
         <span className="text-stone-500">This candidate</span>
-        <span className="flex gap-1">{profile.map((p, i) => <CriterionCell key={i} score={p} />)}</span>
+        <span className="flex gap-1">{profile.map((p, i) => <CriterionCell key={i} score={p} wide />)}</span>
         <span className="text-stone-500">{hire.name.split(" ")[0]}</span>
-        <span className="flex gap-1">{hire.profile.map((p, i) => <CriterionCell key={i} score={p} />)}</span>
+        <span className="flex gap-1">{hire.profile.map((p, i) => <CriterionCell key={i} score={p} wide />)}</span>
       </div>
-      <p className="mt-2 text-xs text-stone-500">Nearest match on the five rubric criteria (C1–C5), using the past-hire scores in rubric.txt.</p>
+      {shared.length > 0 && <p className="mt-2 text-xs">Both strongest on: <b>{shared.map((s) => CRITERION_LONG[CRITERION_SHORT.indexOf(s)]).join(", ")}</b></p>}
+      <p className="mt-1 text-xs text-stone-500">Matched on the pattern of strengths across the five criteria, using the past-hire scores in rubric.txt. A guide to the kind of hire, not a prediction.</p>
     </Card>
   );
 }

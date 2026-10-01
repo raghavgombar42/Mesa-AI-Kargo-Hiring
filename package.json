@@ -11,7 +11,8 @@
     "calibrate": "tsx --env-file=.env.local scripts/calibrate.ts",
     "typecheck": "tsc --noEmit",
     "screen-report": "tsx --env-file=.env.local scripts/screen-report.ts",
-    "ingest": "tsx --env-file=.env.local scripts/ingest.ts"
+    "ingest": "tsx --env-file=.env.local scripts/ingest.ts",
+    "redraft": "tsx --env-file=.env.local scripts/redraft.ts"
   },
   "dependencies": {
     "@google/genai": "^2.24.0",
